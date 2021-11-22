@@ -4,6 +4,7 @@ function getCurrentUrl(){
 
 };
 
-function power($a,$b){
-return $a**$b;
+function diePage($msg){
+    echo "$msg";
+    die();
 };

@@ -4,6 +4,6 @@ function getTasks(){
 
 };
 
-function register(){
+function shutUp(){
 
 };
