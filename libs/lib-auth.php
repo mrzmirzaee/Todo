@@ -4,6 +4,7 @@ function authenticate($user,$pass){
 
 };
 
-function register(){
+function getCurrentUserId(){
+    return 1;
 
 };
