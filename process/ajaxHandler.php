@@ -1,4 +1,4 @@
-<?php defined('ROOT_PATH') OR die('Access denied');
+<?php //defined('ROOT_PATH') OR die('Access denied');
 
 include_once "../Bootstrap/init.php";
 
@@ -10,7 +10,10 @@ if (!isset($_POST['action']) || empty($_POST['action'])) {
 }
 switch ($_POST['action']) {
     case "addFolder":
-        if(addFolder($_POST['folder_name'])){return 1;};
+        
+        if(addFolder($_POST['folder_name'])){
+            return TRUE;
+        };
         break;
     
     default:
