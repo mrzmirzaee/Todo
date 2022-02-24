@@ -1,4 +1,4 @@
-<?php 
+<?php defined('ROOT_PATH') OR die('Access denied');
 function authenticate($user,$pass){
 
 

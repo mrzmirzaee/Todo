@@ -13,7 +13,6 @@
     <div class="page">
         <div class="pageHeader">
             <div class="title">Dashboard</div>
-
             <div class="userPanel"><i class="fa fa-chevron-down"></i><span class="username">John Doe </span><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/73.jpg" width="40" height="40" /></div>
         </div>
         <div class="main">
@@ -25,7 +24,7 @@
                 </div>
                 <div class="menu">
                     <div class="title">Navigation</div>
-                    <ul>
+                    <ul class="folder-list">
                         <?php foreach($folders as $folder):?>
                                 <li>
                                  <a href="?folder_id=<?php echo $folder->id?>"><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
@@ -39,7 +38,7 @@
                     </ul>
                     
                 </div>
-                <input type="text" id="newFolderInput" placeholder="Add New Folder">
+                <input type="text" id="addFolderInput" placeholder="Add New Folder">
                     <button id="addFolderBtn"class="btn clickable">+</button>
             </div>
             <div class="view">
@@ -78,7 +77,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+              </div>
             </div>  
         </div>
     </div>
@@ -86,12 +85,23 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="./assets/js/script.js"></script>
     <script>
-    document.ready(function(){
-        var inputAddFolder = $('input#addNewFolder');
-        $('#addFolderBtn').click(function(){
-           alert(inputAddFolder.val());
+    $(document).ready(function(){
+        $('#addFolderBtn').click(function(e){
+            console.log("hi");
+            var inputAddFolder = $('input#addFolderInput');
+            $.ajax({
+                url: "process/ajaxHandler.php", 
+                method: "post" ,
+                data:{action: "addFolder", folder_name: inputAddFolder.val()}, 
+                success: function (respone) {
+                     if(respone == '1'){
+                         $('<li> <a href="#"><i class="fa fa-folder"></i>'+inputAddFolder.val()+'</a> <a href="?delete_folder=<?php echo $folder->id?>" class="removeBtn"><i class="fa fa-trash-o"></i> </a> </li>').appendTo('.folder-list')
+                     }
+                }
+            });
         });
     })
+    
       </script>
 
 </body>
