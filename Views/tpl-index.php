@@ -25,7 +25,7 @@
                 <div class="menu">
                     <div class="title">Navigation</div>
                     <ul class="folder-list">
-                        <?php foreach($folders as $folder):?>
+                        <?php  foreach($folders as $folder):?>
                                 <li>
                                  <a href="?folder_id=<?= $folder->id?>"><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
                                  <a href="?delete_folder=<?= $folder->id?>" class="removeBtn"><i class="fa fa-trash-o"></i>
@@ -54,19 +54,14 @@
                     <div class="list">
                         <div class="title">Today</div>
                         <ul>
-                            <li class="checked"><i class="fa fa-check-square-o"></i><span>Update team page</span>
+                            <?php  foreach ($tasks as $task):?>
+                                <li class="<?= $task->is_done ? "checked" : ""; ?>"><i class="<?= $task->is_done ? "fa fa-check-square-o" : "fa fa-square-o"; ?>"></i><span><?= $task->title ;?></span>
                                 <div class="info">
-                                    <div class="button green">In progress</div><span>Complete by 25/04/2014</span>
+                                   <span>created_at<?=$task->created_at?></span>
                                 </div>
                             </li>
-                            <li><i class="fa fa-square-o"></i><span>Design a new logo</span>
-                                <div class="info">
-                                    <div class="button">Pending</div><span>Complete by 10/04/2014</span>
-                                </div>
-                            </li>
-                            <li><i class="fa fa-square-o"></i><span>Find a front end developer</span>
-                                <div class="info"></div>
-                            </li>
+                          
+                            <?php endforeach;?>
                         </ul>
                     </div>
                     <div class="list">

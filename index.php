@@ -12,4 +12,5 @@ $folders = getFolders();
 // var_dump($folders);
 // $tasks = getTasks();
 // dd($tasks);
+$tasks = getTasks();
 include "./Views/tpl-index.php";
