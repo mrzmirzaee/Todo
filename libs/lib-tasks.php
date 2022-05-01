@@ -37,3 +37,12 @@ function getTasks(){
     return $records;
     }
 
+    function deleteTask($taskId){
+        global $db;
+        $deleteTask = "delete from tasks where id = $taskId";
+        $stmt = $db->prepare($deleteTask);
+        $stmt->execute();
+        $records = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $records;    
+
+    };

@@ -27,8 +27,8 @@
                     <ul class="folder-list">
                         <?php  foreach($folders as $folder):?>
                                 <li>
-                                 <a href="?folder_id=<?= $folder->id?>"><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
-                                 <a href="?delete_folder=<?= $folder->id?>" class="removeBtn"><i class="fa fa-trash-o"></i>
+                                 <a href="?folder_id=<?= $folder->id?>" onclick="addClass('active')"><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
+                                 <a href="?delete_folder=<?= $folder->id?>" class="removeBtn" onclick="return confirm('are you sure you want to delete this item?\n <?= $folder->folder_name?>');"><i class="fa fa-trash-o"></i>
                                  </a>
                                 </li>
                             
@@ -58,18 +58,12 @@
                                 <li class="<?= $task->is_done ? "checked" : ""; ?>"><i class="<?= $task->is_done ? "fa fa-check-square-o" : "fa fa-square-o"; ?>"></i><span><?= $task->title ;?></span>
                                 <div class="info">
                                    <span>created_at<?=$task->created_at?></span>
+                                   <a href="?delete_task=<?=$task->id?>" class="removeBtn" onclick="return confirm('are you sure you want to delete this item?\n <?= $task->title?>');"><i class="fa fa-trash-o"></i>
+                                 </a>
                                 </div>
                             </li>
                           
                             <?php endforeach;?>
-                        </ul>
-                    </div>
-                    <div class="list">
-                        <div class="title">Tomorrow</div>
-                        <ul>
-                            <li><i class="fa fa-square-o"></i><span>Find front end developer</span>
-                                <div class="info"></div>
-                            </li>
                         </ul>
                     </div>
               </div>
