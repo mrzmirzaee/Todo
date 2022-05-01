@@ -1,0 +1,14 @@
+{
+    "name": "mrmir/todo_list",
+    "description": "This is a Simple Todo List Project And uses AJAX,PHP,MYSQL technologies.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [{
+        "name": "Mohammadreza Mirzaee",
+        "email": "mrmirzaee@outlook.com"
+    }],
+    "minimum-stability": "stable",
+    "require": {
+        "hekmatinasser/verta": "^1.12"
+    }
+}
