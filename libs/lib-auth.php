@@ -8,3 +8,6 @@ function getCurrentUserId(){
     return 1;
 
 };
+function isLoggedIn(){
+return false;
+}
