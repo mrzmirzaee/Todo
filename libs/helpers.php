@@ -15,5 +15,5 @@ function dd($var){
 }
 
 function site_url($uri = ''){
-echo BASE_URL . $uri;
+return BASE_URL . $uri;
 };

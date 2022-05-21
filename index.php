@@ -3,7 +3,7 @@
 include "./Bootstrap/init.php";
 // ******** Check if User is Logged in *********
 if (!isLoggedIn()){
-header("location:".site_url('auth.php'));
+header('location:'.site_url('auth.php'));
 };
 // ********Deletes folders by sent parameters*********
 if (isset($_GET['delete_folder'])&& is_numeric($_GET['delete_folder']) ){
