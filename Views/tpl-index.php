@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Task manager UI</title>
+    <title><?=SITE_TITLE ?> </title>
     <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
@@ -25,16 +25,17 @@
                 <div class="menu">
                     <div class="title">Navigation</div>
                     <ul class="folder-list">
+                    <li class="<?= isset($_GET['folder_id'])  ? '' : 'active' ; ?> "> <i class="fa fa-folder"></i>All</li>
                         <?php  foreach($folders as $folder):?>
-                                <li>
-                                 <a href="?folder_id=<?= $folder->id?>" onclick="addClass('active')"><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
+                                <li class="<?=(isset($_GET['folder_id']) && $_GET['folder_id'] == $folder->id) ? "active" : '' ;?>">
+                                 <a href="?folder_id=<?= $folder->id?>" ><i class="fa fa-folder"></i><?= $folder->folder_name; ?></a>
                                  <a href="?delete_folder=<?= $folder->id?>" class="removeBtn" onclick="return confirm('are you sure you want to delete this item?\n <?= $folder->folder_name?>');"><i class="fa fa-trash-o"></i>
                                  </a>
                                 </li>
                             
                         
                         <?php endforeach;?>
-                        <li class="active"> <i class="fa fa-folder"></i>Folder 2</li>
+                      
                     </ul>
                     
                 </div>
@@ -43,19 +44,21 @@
             </div>
             <div class="view">
                 <div class="viewHeader">
-                    <div class="title">Manage Tasks</div>
+                    <div class="title"> 
+                          <input type="text" id="addTaskInput" placeholder="Add New Task">
+                </div>
                     <div class="functions">
-                        <div class="button active">Add New Task</div>
                         <div class="button">Completed</div>
-                        <div class="button inverz"><i class="fa fa-trash-o"></i></div>
-                    </div>
+                        <div class="button active btn clickable" id="addTaskBtn">Add New Task</div>
+
+                 </div>
                 </div>
                 <div class="content">
                     <div class="list">
-                        <div class="title">Today</div>
-                        <ul>
+                        <div class="title"style="width: 50%;">Today</div>
+                        <ul><?php if(sizeof($tasks)): ?>
                             <?php  foreach ($tasks as $task):?>
-                                <li class="<?= $task->is_done ? "checked" : ""; ?>"><i class="<?= $task->is_done ? "fa fa-check-square-o" : "fa fa-square-o"; ?>"></i><span><?= $task->title ;?></span>
+                                <li  class="<?= $task->is_done ? "checked" : ""; ?>"><i data-TaskId="<?= $task->id ?>" class="<?= $task->is_done ? "fa fa-check-square-o" : "fa fa-square-o"; ?> isDone"></i><span><?= $task->title ;?></span>
                                 <div class="info">
                                    <span>created_at<?=$task->created_at?></span>
                                    <a href="?delete_task=<?=$task->id?>" class="removeBtn" onclick="return confirm('are you sure you want to delete this item?\n <?= $task->title?>');"><i class="fa fa-trash-o"></i>
@@ -64,6 +67,8 @@
                             </li>
                           
                             <?php endforeach;?>
+                            <?php else : echo " <li class='checked' ><i class=''></i><span>Nothing To Show here yet Add Some Tasks  ...</span>"; 
+                            endif;?>
                         </ul>
                     </div>
               </div>
@@ -78,6 +83,17 @@
       <script src="./assets/js/script.js"></script>
     <script>
   $(document).ready(function(){
+    $('.isDone').click(function(e){
+        var tid = $(this).attr('data-TaskId');
+        $.ajax({
+                url: "process/ajaxHandler.php", 
+                method: "post",
+                data:{action: "doneSwitch", taskId: tid }, 
+                success: function (respone) {
+                        location.reload();
+                }
+            });
+    });
         $('#addFolderBtn').click(function(e){
             var inputAddFolder = $('#addFolderInput');
             $.ajax({
@@ -85,17 +101,35 @@
                 method: "post",
                 data:{action: "addFolder", folder_name: inputAddFolder.val()}, 
                 success: function (respone) {
-                     if(respone !== 0){
-                        $('<li> <a href="#"><i class="fa fa-folder"></i>'+inputAddFolder.val()+'</a> <a href="?delete_folder=" class="removeBtn"><i class="fa fa-trash-o"></i> </a> </li>').appendTo('.folder-list');
+                    if(respone !== 0){
+                        $('<li> <a href="#"><i class="fa fa-folder"></i>'+inputAddFolder.val()+'</a> <a href="?delete_folder= <?php echo $folder->id;?>" class="removeBtn" > <i class="fa fa-trash-o"></i> </a> </li> ').appendTo('.folder-list');
                         inputAddFolder.val("");
                         
                      }
+
                 }
             });
         });
+
+        $('#addTaskInput').on('keypress',function(e){
+            var inputAddTask = $('#addTaskInput')
+            if(e.which == 13 ){
+                $.ajax({
+                    url: "process/ajaxhandler.php",
+                    method:"post",
+                    data:{action : "addTask" ,folder_id: <?= $_GET['folder_id']?> , task_title: inputAddTask.val()},
+                    success : function(respone){
+                      if(respone !== 0){
+                          console.log(respone)
+                           location.reload() 
+                      }
+                    }      
+                })
+            }
+         })
     })
     
-      </script>
+</script>
 
 </body>
 

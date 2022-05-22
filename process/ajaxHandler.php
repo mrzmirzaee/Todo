@@ -14,8 +14,15 @@ switch ($_POST['action']) {
         if(addFolder($_POST['folder_name'])){
             return TRUE;
         };
+        case "doneSwitch":
+            if(doneSwitch($_POST['taskId'])){
+                return TRUE;
+            };
+    case "addTask":
+        if(addTask($_POST['folder_id'], $_POST['task_title'])){
+            return true;
+        }
         break;
-    
     default:
     diePage("invalid Action");
         break;

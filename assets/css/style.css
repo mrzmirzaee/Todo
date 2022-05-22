@@ -13,7 +13,7 @@ body {
 
 .menu ul li a {
     text-decoration: none;
-    color: rgb(37, 69, 129);
+    color: rgb(28, 72, 160);
 }
 
 .removeBtn:hover {
@@ -182,6 +182,10 @@ input {
 }
 
 .main .nav .menu ul li.active {
+    color: #79BC46;
+}
+
+.main .nav .menu ul li.active a {
     color: #79BC46;
 }
 
